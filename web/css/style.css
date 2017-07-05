@@ -38,3 +38,43 @@ input[type=search]
     flex:1;
     margin-right: 5px;
 }
+.center
+{
+    display:flex;
+    flex-flow: row nowrap;
+    justify-content: center; 
+}
+.center form
+{
+   width:75%;
+   
+}
+#form
+{
+   display:flex;
+   flex-flow: column nowrap;
+    width: 100%;
+}
+#form_Description
+{
+    width: 100%;
+    min-height: 150px;
+    margin: 10px;
+}
+label
+{
+    display:flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+}
+#form_save
+{
+    justify-content: center;
+    width: 50%;
+}
+#form div:nth-child(2)
+{
+    display:flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+}

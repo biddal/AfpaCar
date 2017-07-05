@@ -13,15 +13,19 @@
     </head>
     <body>
         <header>
-            <a href='' >
+            <a href='{{ path('homepage') }}'>
                 {% image 'images/logo.jpg' %}
                     <img src="{{ asset_url }}" alt="Example" />
                 {% endimage %}
             </a>
-            <a href=''>se connecter / s'enregistrer</a>
+            {{ app.user }}
+            <a href="{{ path('account') }}">se connecter / s'enregistrer</a>
         </header>
+        <main>
         {% block main %}
         {% endblock %}
+        </main>
+        
         
     </body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

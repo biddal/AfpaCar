@@ -9,13 +9,12 @@ use Symfony\Component\HttpFoundation\Request;
 class IndexController extends AbstractController
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/afpacar", name="homepage")
      */
     public function indexAction(Request $request)
     {
         // replace this example code with whatever you need
-        return $this->render('index.html.twig' 
-            
-        );
+        return $this->render('index.html.twig');
     }
+  
 }
