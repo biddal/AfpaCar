@@ -1,0 +1,22 @@
+{% include 'template.html.twig' %}
+{% block main %}
+    <div class="row">
+        <div class='bloc-gauche'> 
+            <form >
+                <input type='search'name=''>
+                <input type='submit'>
+            </form> 
+            <div class='presentation'>
+                <p> bonjour  bonjour bonjour bonjour bonjour bonjour bonjour bonjour bonjour bonjour bonjourgggggggggggggggggggggggggggggggggggg</p>
+                <p> bonjour  bonjour bonjour bonjour bonjour bonjour bonjour bonjour bonjour bonjour bonjour</p>
+                <p> bonjour  bonjour bonjour bonjour bonjour bonjour bonjour bonjour bonjour bonjour bonjour</p>
+            </div>
+        </div>
+        <div id="cmap"></div>
+        {% block javascripts %}
+            {% javascripts 'js/map/*' %}
+                <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %}
+    </div>
+{% endblock %}
