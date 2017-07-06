@@ -18,8 +18,8 @@
                     <img src="{{ asset_url }}" alt="Example" />
                 {% endimage %}
             </a>
-            {{ app.user }}
-            <a href="{{ path('account') }}">se connecter / s'enregistrer</a>
+            {{ app.user.username }}
+            <a href="{{ path('login') }}">se connecter / s'enregistrer</a>
         </header>
         <main>
         {% block main %}

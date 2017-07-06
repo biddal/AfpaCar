@@ -6,13 +6,14 @@ use AppBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 
 
 class AccountController extends AbstractController
 {
     /**
-     * @Route("/afpacar/account", name="account")
+     * @Route("/account", name="account")
      */
     public function indexAction()
     {
@@ -51,30 +52,23 @@ class AccountController extends AbstractController
     }
     
     /**
-     * @Route("/afpacar/account/login", name="login")
+     * @Route("/login", name="login")
      */
-    public function loginAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-         
-        $data = $request->request->all();
-        $id   = $data['id'];
-        $pwd  = $data['pwd'];
+    public function loginAction(Request $request, AuthenticationUtils $authUtils)
+{
+        // get the login error if there is one
+        $error = $authUtils->getLastAuthenticationError();
+
+        // last username entered by the user
+        $lastUsername = $authUtils->getLastUsername();
         
-        $query = $em->createQuery('SELECT u
-                                   FROM AppBundle:User u
-                                   WHERE u.username = :id 
-                                   AND   u.password = :pwd'
-                                 )->setParameter('id', $id)
-                                  ->setParameter('pwd', $pwd);
-        
-        $user = $query->getResult();
-        
-        if(count($user)) return $this->render('account.html.twig', 
-                array('error' => 0));
-        else return $this->render('account.html.twig', 
-                array('error' => 2));
+
+        return $this->render('account.html.twig', array(
+            'last_username' => $lastUsername,
+            'error'         => $error,
+        ));
     }
+    
     /**
      * @Route("/afpacar/account/error/{type}", name="error")
      */

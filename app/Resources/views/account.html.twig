@@ -1,6 +1,6 @@
 {% include 'template.html.twig' %}
 {% block main %}
-        {% if error == 0 %}
+        {#{% if error == 0 %}
             <p style='color:green'>Compte créé.</p>
         {% endif %}
         {% if error == 1 %}
@@ -8,7 +8,8 @@
         {% endif %}
         {% if error == 2 %}
             <p style='color:red'>Utilisateur existant.</p>
-        {% endif %}
+        {% endif %}#}
+
     <section id="account">
         <form method="post" id="register" action="{{ path('register') }}">
             <label>Identifiant :</label><input type="text" name="id" required/>
@@ -17,9 +18,12 @@
             <input type="submit" value="Je m'enregistre" />
         </form>
         <form method="post" name="login" id="login" action="{{ path('login') }}">
-            <label>Identifiant :</label><input type="text" name="id" required/>
-            <label>Mot de passe :</label><input type="password" name="pwd" required/>
+            <label>Identifiant :</label><input type="text" name="_username" required/>
+            <label>Mot de passe :</label><input type="password" name="_password" required/>
             <input type="submit" value="Je me connecte" />
         </form>
     </section>
+{% if error %}
+    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %}
 {% endblock %}

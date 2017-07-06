@@ -33,3 +33,6 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+    security_hook:
+        class: AppBundle\Service\LoginEntryPoint
+        arguments: [ "@router" ]

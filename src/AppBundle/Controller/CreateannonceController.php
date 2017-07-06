@@ -12,7 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class CreateannonceController extends AbstractController
 {
     /**
-     * @Route("afpacar/createannonce", name="createannonce")
+     * @Route("/annonce/new", name="createannonce")
      */
   
     public function newAction(Request $request)

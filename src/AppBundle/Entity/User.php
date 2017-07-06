@@ -2,7 +2,10 @@
 
 namespace AppBundle\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Serializable;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
@@ -10,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="user", indexes={@ORM\Index(name="FK_etablishmentID", columns={"etablishment"})})
  * @ORM\Entity
  */
-class User
+class User implements UserInterface, Serializable
 {
     /**
      * @var string
@@ -62,7 +65,7 @@ class User
     private $mail;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="expire", type="date", nullable=true)
      */
@@ -78,9 +81,9 @@ class User
     private $id;
 
     /**
-     * @var \AppBundle\Entity\Establishment
+     * @var Establishment
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Establishment")
+     * @ORM\ManyToOne(targetEntity="Establishment")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="etablishment", referencedColumnName="ID")
      * })
@@ -260,7 +263,7 @@ class User
     /**
      * Set expire
      *
-     * @param \DateTime $expire
+     * @param DateTime $expire
      *
      * @return User
      */
@@ -274,7 +277,7 @@ class User
     /**
      * Get expire
      *
-     * @return \DateTime
+     * @return DateTime
      */
     public function getExpire()
     {
@@ -294,11 +297,11 @@ class User
     /**
      * Set etablishment
      *
-     * @param \AppBundle\Entity\Establishment $etablishment
+     * @param Establishment $etablishment
      *
      * @return User
      */
-    public function setEtablishment(\AppBundle\Entity\Establishment $etablishment = null)
+    public function setEtablishment(Establishment $etablishment = null)
     {
         $this->etablishment = $etablishment;
 
@@ -308,10 +311,43 @@ class User
     /**
      * Get etablishment
      *
-     * @return \AppBundle\Entity\Establishment
+     * @return Establishment
      */
     public function getEtablishment()
     {
         return $this->etablishment;
     }
+
+    public function eraseCredentials() {
+        
+    }
+    public function getRoles() {
+        return array('ROLE_USER'); //TODO
+    }
+    public function getSalt() {
+        return null;
+    }
+    public function serialize() {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+    public function unserialize($serialized) {
+         list (
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+        ) = unserialize($serialized);
+    }
+    public function equals(UserInterface $user)
+    {
+        return $user->getUsername() == $this->getUsername();
+    }
+
 }
